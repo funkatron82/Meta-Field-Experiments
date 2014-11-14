@@ -13,10 +13,10 @@ License: GPL2
 include_once 'config.php';
 include_once 'html/input.php';
 include_once 'html/text.php';
-include_once 'html/number.php';
+//include_once 'html/number.php';
 include_once 'html/url.php';
 include_once 'html/email.php';
-include_once 'html/range.php';
+//include_once 'html/range.php';
 include_once 'html/color.php';
 add_action( 'add_meta_boxes_post', 'cmf_boxes' );
 
@@ -32,6 +32,6 @@ function cmf_boxes() {
 }
 
 function cmf_show( $post, $meta_box ) {
-	$test = new CEDCF_Number_Html( array( 'required' => true, 'placeholder'=> 'winning', 'default' => 2000, 'max' => 4000 ) );
-	echo $test->show( 'test', 'test' );
+	$test = new CEDCF_Url_Html( array( 'attributes' => array( 'required' => true, 'placeholder'=> 'winning' ) ) );
+	$test->show( 'test', 'test' );
 }

@@ -3,35 +3,26 @@
 abstract class CEDCF_Field_Html {
 	public $attributes = array();
 	public $classes = array();
-	public $type = '';
 	public $settings = array();
-	public $options = array();
 	
 	function __construct( $settings ) {
-		$this->classes[] = 'cedcf-field';
-		$this->classes[] = 'cedcf-' . $this->type;
-		$this->settings = $this->normalize( $settings );
-		$this->attributes = $this->filter_attributes();
-		$this->options = $this->process_options();
+		$settings = wp_parse_args( $settings, array( 'attributes' => array(), 'classes' => array() ));
+		$this->classes = $this->normalize_classes( $settings['classes'] );
+		$this->attributes = $this->normalize_attributes( $settings['attributes']);
 		$this->add_actions();
 		$this->add_scripts();
 	}
-	
-	function normalize( $settings ) {
-		return  wp_parse_args( $settings, array(
-			'options' => array()	
-		) );
-	}
-	
-	function filter_attributes() {
-		return array_intersect_key( $this->settings, array_flip( $this->get_filter() ) );
-	}
-	
-	function get_attributes() {
-		$attr = array();
 
-		//Classes
-		$this->attributes['class'] = implode( ' ', $this->classes );
+	function normalize_attributes( $attributes ) {
+		return (array) $attributes;	
+	}
+	
+	function normalize_classes( $classes ) {
+		return (array) $classes;	
+	}
+	
+	function print_attributes( $attributes ) {
+		$attributes = (array) $attributes;
 		
 		//Parse attributes
 		foreach( $this->attributes as $key => $value ) {
@@ -51,31 +42,10 @@ abstract class CEDCF_Field_Html {
 		return implode( ' ', $attr );
 	}
 	
-	function get_filter() {
-		return array( 'required', 'disabled' );
+	function print_classes( $classes ) {
+		return implode( ' ', $classes );
 	}
-	
-	function process_options() {
-		if( empty( $this->settings['options'] ) ) {
-			return;
-		}
-		
-		$options = array();
-		
-		foreach( $this->settings['options'] as $key => $option ) {
-			if( ! is_array( $option ) || empty( $option['value'] ) )	
-				continue;
-			$option['value'] = $this->sanitize( $option['value'] );
-			$options[$key] = $option;
-		}
-		
-		return $options;
-	}
-	
-	function walk_options() {
-		return '';	
-	}
-	
+
 	function show( $name, $id, $value = '' ) {
 		echo '';	
 	}
