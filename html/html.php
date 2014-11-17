@@ -4,6 +4,7 @@ abstract class CEDCF_Field_Html {
 	public $attributes = array();
 	public $classes = array();
 	public $settings = array();
+	public $type = '';
 	
 	function __construct( $settings ) {
 		$settings = wp_parse_args( $settings, array( 'attributes' => array(), 'classes' => array() ));
@@ -18,7 +19,10 @@ abstract class CEDCF_Field_Html {
 	}
 	
 	function normalize_classes( $classes ) {
-		return (array) $classes;	
+		$classes = (array) $classes;
+		$classes[] = 'cedcf-field';
+		$classes[] = 'cedcf-' . $this->type;
+		return $classes;	
 	}
 	
 	function print_attributes( $attributes ) {

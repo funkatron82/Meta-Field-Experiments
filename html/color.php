@@ -2,6 +2,7 @@
 require_once 'text.php';
 
 class CEDCF_Color_Html extends CEDCF_Text_Html {
+	public $type = 'color';
 	function add_scripts() {
 		//Enqueue script	
 		wp_enqueue_script( 'cedcf-color', CEDCF_URL . 'js/color.js', array( 'wp-color-picker' ));		
@@ -24,10 +25,5 @@ class CEDCF_Color_Html extends CEDCF_Text_Html {
 		}
 	
 		return '#';
-	}
-	
-	function normalize_classes( $classes ) {
-		$classes[] = 'cedmf-color';
-		return $classes;
 	}
 }
