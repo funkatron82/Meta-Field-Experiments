@@ -19,9 +19,15 @@ class CEDCF_Color_Html extends CEDCF_Text_Html {
 	
 	function sanitize( $value ) {
 		// 3 or 6 hex digits, or the empty string.
-		if ( preg_match('|^#([A-Fa-f0-9]{3}){1,2}$|', $value ) )
+		if ( preg_match('|^#([A-Fa-f0-9]{3}){1,2}$|', $value ) ) {
 			return $value;
+		}
 	
 		return '#';
+	}
+	
+	function normalize_classes( $classes ) {
+		$classes[] = 'cedmf-color';
+		return $classes;
 	}
 }

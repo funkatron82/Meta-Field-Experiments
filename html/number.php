@@ -2,24 +2,23 @@
 require_once 'input.php';
 
 class CEDCF_Number_Html extends CEDCF_Input_Html {
-	public $type = 'number';
-	
-	function normalize( $settings ) {
-		//Defaults
-		$settings = wp_parse_args( $settings, array(
+	function normalize_attributes( $attributes ) {
+		$attributes = wp_parse_args( $attributes, array(
 			'step' => 1,
 			'min' => 0,
 			'max' => 10
 		) );
-		
-		return parent::normalize( $settings );
-	}
-	
-	function get_filter() {
-		return array_merge( parent::get_filter(), array( 'min', 'max', 'step' ) );
+		$atributes = parent::normalize_attributes( $attributes );
+		$attributes['type'] = 'number';
+		return $attributes;
 	}
 	
 	function  sanitize( $value ) {
 		return filter_var( $value, FILTER_SANITIZE_NUMBER_FLOAT );
+	}
+	
+	function normalize_classes( $classes ) {
+		$classes[] = 'cedmf-number';
+		return $classes;
 	}
 }

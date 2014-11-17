@@ -18,6 +18,8 @@ include_once 'html/url.php';
 include_once 'html/email.php';
 //include_once 'html/range.php';
 include_once 'html/color.php';
+
+include_once 'controllers/meta.php';
 add_action( 'add_meta_boxes_post', 'cmf_boxes' );
 
 function cmf_boxes() {
@@ -32,6 +34,13 @@ function cmf_boxes() {
 }
 
 function cmf_show( $post, $meta_box ) {
-	$test = new CEDCF_Url_Html( array( 'attributes' => array( 'required' => true, 'placeholder'=> 'winning' ) ) );
-	$test->show( 'test', 'test' );
+	$test_controller = new CEDCF_Meta_Controller( array( 'name' => 'test',  'type' => 'text', 'attributes' => array( 'required' => true, 'placeholder'=> 'winning' ) ) );
+	$test_controller->show();
+}
+
+add_action( 'save_post_post', 'cmf_save', 10, 3 );
+
+function cmf_save( $post_id, $post, $update ) {
+	$test_controller = new CEDCF_Meta_Controller( array( 'name' => 'test',  'type' => 'text', 'attributes' => array( 'required' => true, 'placeholder'=> 'Enter your text here' ) ) );
+	$test_controller->save();
 }

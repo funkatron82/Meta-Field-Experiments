@@ -7,4 +7,9 @@ class CEDCF_Password_Html extends CEDCF_Text_Html {
 		$attributes['type'] ='password';			
 		return $attributes;	
 	}
+	
+	function normalize_classes( $classes ) {
+		$classes[] = 'cedmf-password';
+		return $classes;
+	}
 }

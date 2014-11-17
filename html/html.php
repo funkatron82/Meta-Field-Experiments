@@ -25,7 +25,7 @@ abstract class CEDCF_Field_Html {
 		$attributes = (array) $attributes;
 		
 		//Parse attributes
-		foreach( $this->attributes as $key => $value ) {
+		foreach( $attributes as $key => $value ) {
 			if( $value === false || is_null( $value ) ) {
 				continue;	
 			}
